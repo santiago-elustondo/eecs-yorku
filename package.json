@@ -1,0 +1,28 @@
+{
+  "name": "eecs-yorku",
+  "version": "1.0.0",
+  "description": "A command-line SSH client tool for submitting assignments and managing your York Univeristy Prism account.",
+  "main": "eecs-yorku.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dirtysanchez69/eecs-yorku.git"
+  },
+  "keywords": [
+    "york",
+    "university",
+    "lassonde",
+    "node",
+    "prism"
+  ],
+  "author": "Santiago Elustondo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dirtysanchez69/eecs-yorku/issues"
+  },
+  "homepage": "https://github.com/dirtysanchez69/eecs-yorku#readme",
+  "dependencies": {
+  }
+}
