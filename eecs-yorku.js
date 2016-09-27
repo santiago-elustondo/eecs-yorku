@@ -1,4 +1,4 @@
-#!/user/bin/env node
+#!/usr/bin/env node
 
 var path = require('path')
 var SshClient = require('node-ssh')
