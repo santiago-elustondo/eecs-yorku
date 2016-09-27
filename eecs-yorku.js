@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var path = require('path')
 var SshClient = require('node-ssh')
 var JsonFile = require('jsonfile') 
 
