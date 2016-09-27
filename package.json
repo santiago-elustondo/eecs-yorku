@@ -24,5 +24,10 @@
   },
   "homepage": "https://github.com/dirtysanchez69/eecs-yorku#readme",
   "dependencies": {
+    "jsonfile": "^2.4.0",
+    "node-ssh": "^3.0.1",
+  },
+  "bin": {
+    "eecs-yorku": "./eecs-yorku.js"
   }
 }
