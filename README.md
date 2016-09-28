@@ -3,7 +3,7 @@
 -------------------------------------
 
 ## To use:
-1) Install node
+1) Install node <br />
 2) Run this command on your terminal: 
 ```sh
 $ npm install -g eecs-yorku
