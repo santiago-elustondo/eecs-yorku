@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
+var path = require('path')
+var OS = require('os')
 var SshClient = require('node-ssh')
 var JsonFile = require('jsonfile') 
 
-const HOST = 'red.cse.yorku.ca';
-const HOME_PATH = '/eecs/home';
-const USER_FILE = 'credentials.json';
+const HOST = 'red.cse.yorku.ca'
+const HOME_PATH = '/eecs/home'
+const APP_DATA = path.resolve(OS.homedir(), 'eecs-yorku')
+const USER_FILE = path.resolve(APP_DATA, 'credentials.json')
 const msg = {
   CONFIGURE_CREDENTIALS: 'You must configure your credentials.',
   SET_USER: 'Set your username: "eecs-yorku set-user <username>"',
@@ -20,7 +23,7 @@ var client = new SshClient()
 var close = (msg) => { console.log(msg || 'closing..'); client.dispose(); }
 var error = (t, m, r) => { 
   var o = Object.create({type:t, message:m}); if(r){ r(o) } else { throw o } 
-};
+}
 
 var args = getArgs();
 var user;
@@ -84,8 +87,8 @@ function getArgs(action){
 
 function getUser(){
   return new Promise((resolve, reject) => {
-    JsonFile.readFile(USER_FILE, (error, usr) => {
-      if(error) {
+    JsonFile.readFile(USER_FILE, (err, usr) => {
+      if(err) {
         if(err.code == 'ENOENT') error('NO_CREDS', msg.CONFIGURE_CREDENTIALS, reject)
         else error('UNKNOWN', err, reject);
       } else {

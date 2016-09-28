@@ -29,7 +29,7 @@ $   eecs-yorku submit fake_course fake_lab <a_file> <another_file>
 ```sh
 $ eecs-york set-user <username>
 ``` 
-Sets user to use for authorization. Stored in .json in same directory. 
+Sets user to use for authorization. Stored in .json in user's home directory. 
 
 
 ### set-pass
