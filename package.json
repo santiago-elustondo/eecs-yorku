@@ -1,6 +1,6 @@
 {
   "name": "eecs-yorku",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A command-line SSH client tool for submitting assignments and managing your York Univeristy Prism account.",
   "main": "./eecs-yorku.js",
   "scripts": {
