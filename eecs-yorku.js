@@ -11,7 +11,8 @@ const msg = {
   SET_USER: 'Set your username: "eecs-yorku set-user <username>"',
   SET_PASS: 'Set your password: "eecs-yorkus set-pass <password>"',
   PROVIDE_USER: 'Provide user as second parameter',
-  PROVIDE_PASS: 'Provide password as second parameter'
+  PROVIDE_PASS: 'Provide password as second parameter',
+  INVALID_ACTION: 'Invalid action. try: submit, set-user, set-pass'
 }
 
 var client = new SshClient()
@@ -36,6 +37,8 @@ switch(args.action){
     setPassword(args.password)
       .then(() => console.log('password set'))  
       .catch(e => close(e.message)); break;
+  default: 
+    console.log(msg.INVALID_ACTION); break;
 }
 
 
@@ -61,15 +64,15 @@ function getArgs(action){
         course_num: process.argv[3],
         assignment: process.argv[4],
         file_names: process.argv.slice(5)
-      });
+      }); break;
     case 'set-user':
       Object.assign(ar, {
         username: process.argv[3]
-      });
+      }); break;
     case 'set-pass':
       Object.assign(ar, {
         password: process.argv[3]
-      });
+      }); break;
   }
   return ar;
 }
@@ -97,7 +100,8 @@ function getUser(){
 
 function setUser(username){
   return new Promise((resolve, reject) => {
-    if(!username) reject('INVALID_PARAMS', msg.PROVIDE_USER)
+    var err = (t, m) => { reject(Object.create({type:t, message:m})) };
+    if(!username) err('INVALID_PARAMS', msg.PROVIDE_USER)
     JsonFile.readFile(USER_FILE, (err, usr) => {
       var newCreds = { username };
       if(usr) newCreds.password = usr.password;
@@ -110,7 +114,8 @@ function setUser(username){
 
 function setPassword(password){
   return new Promise((resolve, reject) => {
-    if(!password) reject('INVALID_PARAMS', msg.PROVIDE_PASS)
+    var err = (t, m) => { reject(Object.create({type:t, message:m})) };
+    if(!password) err('INVALID_PARAMS', msg.PROVIDE_PASS)
     JsonFile.readFile(USER_FILE, (err, usr) => {
       var newCreds = { password };
       if(usr) newCreds.username = usr.username;
