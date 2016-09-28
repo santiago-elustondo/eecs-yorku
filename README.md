@@ -17,11 +17,11 @@ $  eecs-yorku set-pass <your_password>
 ```sh
 $  eecs-yorku submit
 ```
-5) To test the submission function run this command (replace the <file_placeholders> for real file names):
+5) To test the submission function run this command (replace the `<file_placeholders>` for real file names):
 ```sh
 $   eecs-yorku submit fake_course fake_lab <a_file> <another_file>
 ```
-6) the command above should return something like "there is no such course" (which means its working), and have uploaded your files to your prism account under /etc/home/<your_username>/submissions/fake_course/fake_lab
+6) the command above should return something like "there is no such course" (which means its working), and have uploaded your files to your prism account under /etc/home/`<your_username>`/submissions/fake_course/fake_lab
 
 
 ## API:
@@ -45,7 +45,7 @@ $ eecs-york submit <course> <assignment> <file> <another-file> ...
     
 Uploads all given files (any number of files) to your Prism account and then calls the submit program with the information given. It returns the output to you, so if your file wasn't accepted, you'll get the response (this includes the style-checker feedback). 
 
-Whether your file is accepted or rejected, it is stored in your Prism account under /eecs/home/<username>/submissions/<course>/<assignment>. 
+Whether your file is accepted or rejected, it is stored in your Prism account under /eecs/home/`<username>`/submissions/`<course>`/`<assignment>`. 
 
 A new submission of the same file (whether successful or not) will overwrite the previous.
 
@@ -75,4 +75,4 @@ Set up rsa authentication
 
 ## What's this for?
 
-*"Basically my school gives us accounts for the computer science department system (called Prism). We use our accounts to log into the lab computers, and they have this special program installed on them that we can use, from the terminal, to submit our work (text files, java files, etc). </br> We also have SSH access for our accounts, so we could do a lot of the work on our own computers and SSH in and submit them. <br /> Not many students actually do this, however, for these reasons: <br /> 1)  Some students dont know what SSH is or whether we have it. <br /> 2) Many students have heard that you can do this, but either dont know how or it sounds like a lot of work to set it up. (You have to install Putty and Filezilla or PSCP) <br /> 3) Some students do have it working or could do it easily, but, due to having to login and switch back and forth on 2 or 3 programs, still dont use it or are at least annoyed by it. <br /> **eecs-york** automates this process, so it feels like you have the Prism application on your own computer."*
+*&nbsp;&nbsp;&nbsp;&nbsp;York University gives us (students) accounts for the computer science department system (called Prism). We use our accounts to log into the lab computers, and they have this special program installed on them that we can use, from the terminal, to submit our work (text files, java files, etc). </br> &nbsp;&nbsp;&nbsp;&nbsp;We also have SSH access for our accounts, so we could do a lot of the work on our own computers and SSH in and submit them. <br /> &nbsp;&nbsp;&nbsp;&nbsp;Not many students actually do this, however, for these reasons: <br /> &nbsp;&nbsp;&nbsp;&nbsp;1)  Some students dont know what SSH is or whether we have it. <br /> &nbsp;&nbsp;&nbsp;&nbsp;2) Many students have heard that you can do this, but either dont know how or it sounds like a lot of work to set it up. (You have to install Putty and Filezilla or PSCP) <br /> &nbsp;&nbsp;&nbsp;&nbsp;3) Some students do have it working, or could do it easily, but, due to having to login to and switch back and forth between 2 or 3 different programs every time, still dont do it or are at least annoyed by it. <br /> &nbsp;&nbsp;&nbsp;&nbsp;eecs-york automates this process, so it feels like you have the Prism application on your own computer.*
