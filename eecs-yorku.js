@@ -12,11 +12,15 @@ const msg = {
   SET_PASS: 'Set your password: "eecs-yorkus set-pass <password>"',
   PROVIDE_USER: 'Provide user as second parameter',
   PROVIDE_PASS: 'Provide password as second parameter',
-  INVALID_ACTION: 'Invalid action. try: submit, set-user, set-pass'
+  INVALID_ACTION: 'Invalid action. try: submit, set-user, set-pass',
+  COULDNT_WRITE: 'Attempt to write to file failed. Did you try "sudo"?'
 }
 
 var client = new SshClient()
 var close = (msg) => { console.log(msg || 'closing..'); client.dispose(); }
+var error = (t, m, r) => { 
+  var o = Object.create({type:t, message:m}); if(r){ r(o) } else { throw o } 
+};
 
 var args = getArgs();
 var user;
@@ -81,13 +85,12 @@ function getArgs(action){
 function getUser(){
   return new Promise((resolve, reject) => {
     JsonFile.readFile(USER_FILE, (error, usr) => {
-      var err = (t, m) => { reject(Object.create({type:t, message:m})) };
       if(error) {
-        if(error.code == 'ENOENT') err('NO_CREDS', msg.CONFIGURE_CREDENTIALS)
-        else err('UNKNOWN', error);
+        if(err.code == 'ENOENT') error('NO_CREDS', msg.CONFIGURE_CREDENTIALS, reject)
+        else error('UNKNOWN', err, reject);
       } else {
-        if(!usr || !usr.username){ err('NO_USER', msg.SET_USER) }
-        else if(!usr.password){ err('NO_PASS', msg.SET_PASS) }
+        if(!usr || !usr.username){ error('NO_USER', msg.SET_USER, reject) }
+        else if(!usr.password){ error('NO_PASS', msg.SET_PASS, reject) }
         else { 
           user = usr;
           resolve(usr); 
@@ -100,13 +103,14 @@ function getUser(){
 
 function setUser(username){
   return new Promise((resolve, reject) => {
-    var err = (t, m) => { reject(Object.create({type:t, message:m})) };
     if(!username) err('INVALID_PARAMS', msg.PROVIDE_USER)
     JsonFile.readFile(USER_FILE, (err, usr) => {
       var newCreds = { username };
       if(usr) newCreds.password = usr.password;
-      JsonFile.writeFileSync(USER_FILE, newCreds);
-      resolve();
+      JsonFile.writeFile(USER_FILE, newCreds, (err) => {
+        if(err) error('UNKNOWN', msg.COULDNT_WRITE, reject);
+        else resolve();
+      });
     });
   });
 }
@@ -114,13 +118,14 @@ function setUser(username){
 
 function setPassword(password){
   return new Promise((resolve, reject) => {
-    var err = (t, m) => { reject(Object.create({type:t, message:m})) };
     if(!password) err('INVALID_PARAMS', msg.PROVIDE_PASS)
     JsonFile.readFile(USER_FILE, (err, usr) => {
       var newCreds = { password };
       if(usr) newCreds.username = usr.username;
-      JsonFile.writeFileSync(USER_FILE, newCreds);
-      resolve();
+      JsonFile.writeFile(USER_FILE, newCreds, (err) => {
+        if(err) error('UNKNOWN', msg.COULDNT_WRITE, reject);
+        else resolve();
+      });
     });
   });
 }
@@ -142,11 +147,10 @@ function uploadSubmissions(client, fnames){
 function uploadFile(client, fname, dir){
   if(!dir) dir = HOME_PATH;
   var path = dir + '/' + fname;
-  var err = (t,m) => { throw Object.create({type:t, message:m, fname:fname}) };
   return client.putFile(fname, path)
-    .catch((error) => {
-      if (error.message.indexOf('does not exist') !== -1) 
-        err('NOT_FOUND', fname + ' not found')
-      else err('UNKNOWN')
+    .catch((err) => {
+      if (err.message.indexOf('does not exist') !== -1) 
+        error('NOT_FOUND', fname + ' not found')
+      else error('UNKNOWN', 'unknown error: could not upload file')
     })
 }
