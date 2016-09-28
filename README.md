@@ -72,3 +72,7 @@ You can upload your files right now just by providing nonsensical course and ass
 eecs-york set-rsa ...
 ```
 Set up rsa authentication
+
+## what's this for?
+
+*"Basically my school gives us accounts in their computer science department system. We use our accounts to log into the lab computers, and they have this special program installed on them that we can use from the terminal to submit our work (text files, java files, etc). </br> Now, we also have SSH access for our accounts, so we could do a lot of the work on our own computers and SSH in and submit them. <br /> Not many students actually do this, however, for these reasons: <br /> 1)  Some students dont know what SSH is or whether we have it. Especially first year guys. <br /> 3) some students do have it working or could do it easily, but, due to having to login and switch back and forth on 2 or 3 programs, still dont use it or are at least annoyed by it. <br /> **eecs-york** automates this process, so it feels like you have the Prism application on your own computer."*
