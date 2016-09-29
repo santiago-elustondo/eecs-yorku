@@ -27,20 +27,20 @@ $   eecs-yorku submit fake_course fake_lab <a_file> <another_file>
 ## API:
 ### set-user
 ```sh
-$ eecs-york set-user <username>
+$ eecs-yorku set-user <username>
 ``` 
 Sets user to use for authorization. Stored in .json in user's home directory. 
 
 
 ### set-pass
 ```sh
-$ eecs-york set-pass <password>
+$ eecs-yorku set-pass <password>
 ```
 Sets password to use for authentication.
 
 ### submit
 ```sh
-$ eecs-york submit <course> <assignment> <file> <another-file> ... 
+$ eecs-yorku submit <course> <assignment> <file> <another-file> ... 
 ```
     
 Uploads all given files (any number of files) to your Prism account and then calls the submit program with the information given. It returns the output to you, so if your file wasn't accepted, you'll get the response (this includes the style-checker feedback). 
@@ -50,18 +50,18 @@ Whether your file is accepted or rejected, it is stored in your Prism account un
 A new submission of the same file (whether successful or not) will overwrite the previous.
 
 ```sh
-$ eecs-york submit
+$ eecs-yorku submit
 ```
 Calling submit with no further parameters will return the help page from the Prism application.
 ### show submission [not yet implemented]
 ```sh
-$ eecs-york submit -l <course> <assignment>
+$ eecs-yorku submit -l <course> <assignment>
 ```
 Lists all files you have previously submitted for a specific assignment.
 
 ### upload [not yet implemented]
 ```sh 
-$ eecs-york upload [dir] <file> <another-file> ...
+$ eecs-yorku upload [dir] <file> <another-file> ...
 ```
 Uploads a set of files without calling submit. A directory of choice within your account directory should be able to be selected. 
 
@@ -69,7 +69,7 @@ You can upload your files right now just by providing nonsensical course and ass
 
 ### set-rsa [not yet implemented]
 ```sh 
-eecs-york set-rsa ...
+eecs-yorku set-rsa ...
 ```
 Set up rsa authentication
 
