@@ -78,7 +78,7 @@ function connect(user){
 }
 
 
-function getArgs(action){
+function getArgs(){
   var ar = {
     action: process.argv[2]
   }
