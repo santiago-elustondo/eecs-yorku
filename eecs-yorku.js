@@ -118,27 +118,22 @@ function getUser(){
 
 
 function setUser(username){
-  return new Promise((resolve, reject) => {
-    if(!username) err('INVALID_PARAMS', msg.PROVIDE_USER)
-    JsonFile.readFile(USER_FILE, (err, usr) => {
-      var newCreds = { username };
-      if(usr) newCreds.password = usr.password;
-      JsonFile.writeFile(USER_FILE, newCreds, (err) => {
-        if(err) error('UNKNOWN', msg.COULDNT_WRITE, reject);
-        else resolve();
-      });
-    });
-  });
+  if(!username) error('INVALID_PARAMS', msg.PROVIDE_USER)
+  return assignUserData({username});
 }
 
 
 function setPassword(password){
+  if(!password) error('INVALID_PARAMS', msg.PROVIDE_PASS)
+  return assignUserData({password});
+}
+
+
+function assignUserData(data){
   return new Promise((resolve, reject) => {
-    if(!password) err('INVALID_PARAMS', msg.PROVIDE_PASS)
-    JsonFile.readFile(USER_FILE, (err, usr) => {
-      var newCreds = { password };
-      if(usr) newCreds.username = usr.username;
-      JsonFile.writeFile(USER_FILE, newCreds, (err) => {
+    JsonFile.readFile(USER_FILE, (err, user) => {
+      Object.assign(user, data);
+      JsonFile.writeFile(USER_FILE, user, (err) => {
         if(err) error('UNKNOWN', msg.COULDNT_WRITE, reject);
         else resolve();
       });
