@@ -27,7 +27,7 @@ const msg = {
   NODE_VERSION: 'Please install Node version 6.7.0 or higher.'
 }
 
-if(!checkNodeVersion()) process.exit());
+if(!checkNodeVersion()) process.exit();
 
 var client = new SshClient()
 var close = (msg) => { console.log(msg || 'closing..'); client.dispose(); process.exit(); }
