@@ -47,7 +47,7 @@ Uploads all given files (any number of files) to your Prism account and then cal
 
 Whether your file is accepted or rejected, it is stored in your Prism account under /eecs/home/`<username>`/submissions/`<course>`/`<assignment>`. 
 
-A new submission of the same file (whether successful or not) will overwrite the previous.
+A new submission of the same file (whether successful or not) will overwrite the previous upload.
 
 ```sh
 $ eecs-yorku submit
