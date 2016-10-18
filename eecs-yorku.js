@@ -27,11 +27,7 @@ const msg = {
   NODE_VERSION: 'Please install Node version 6.7.0 or higher.'
 }
 
-if(!checkNodeVersion()) { 
-  console.log(msg.NODE_VERSION);
-  console.log('Current Version: ' + v);
-  process.exit(); 
-}
+if(!checkNodeVersion()) process.exit();
 
 var client = new SshClient()
 var close = (msg) => { console.log(msg || 'closing..'); client.dispose(); process.exit(); }
@@ -186,5 +182,11 @@ function checkDataStorage(){
 function checkNodeVersion(){
   var v = process.versions.node;
   var c = compareVersions(v, NODE_MIN_VERSION);
-  return (c < 0);
+  var r = true;
+  if(c < 0) { 
+    console.log(msg.NODE_VERSION);
+    console.log('Current Version: ' + v);
+    r = false;
+  }
+  return r;
 }
