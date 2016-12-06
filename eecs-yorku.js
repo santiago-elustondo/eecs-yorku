@@ -25,7 +25,7 @@ const msg = {
   HOME_DIR_PERMISSION: 'Process needs permission to write to home dir',
   APP_DATA_PERMISSION: 'Process cannot write to <home-dir>/eecs-yorku',
   NODE_VERSION: 'Please install Node version 6.7.0 or higher.'
-}
+} 
 
 if(!checkNodeVersion()) process.exit();
 
@@ -132,7 +132,7 @@ function setPassword(password){
 function assignUserData(data){
   return new Promise((resolve, reject) => {
     JsonFile.readFile(USER_FILE, (err, user) => {
-      Object.assign(user, data);
+      user = Object.assign({}, user, data);
       JsonFile.writeFile(USER_FILE, user, (err) => {
         if(err) error('UNKNOWN', msg.COULDNT_WRITE, reject);
         else resolve();
